@@ -11,7 +11,6 @@ var x = 2
 
 val fruits = listOf("apple", "banana", "pear")
 
-const val SUBSYSTEM_DEPRECATED = "This subsystem is deprecated"
 
 fun main() {
 
@@ -352,23 +351,3 @@ class MyStringCollection() {
 }
 
 
-class Address {
-    var name: String = ""
-    var street: String = ""
-    var city: String = ""
-    var state: String = ""
-    var zip: String = ""
-    var sim: Boolean
-        get() = this.zip != ""
-        set(value) {
-
-        }
-
-
-    var counter = 0
-        set(value) {
-            if (value >= 0) field = value
-        }
-
-
-}
