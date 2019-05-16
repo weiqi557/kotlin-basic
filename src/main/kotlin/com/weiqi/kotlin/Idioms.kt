@@ -48,8 +48,6 @@ fun usingRanges() {
     }
     for (i in 10 downTo 1) {
     }
-    if (x in 1..100) {
-    }
 }
 
 val list1 = listOf("a", "b", "c")

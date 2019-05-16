@@ -1,5 +1,8 @@
 package com.weiqi.kotlin
 
+import java.awt.event.ActionListener
+import java.util.function.BinaryOperator
+import java.util.function.IntBinaryOperator
 import kotlin.math.exp
 
 fun main() {
@@ -699,3 +702,97 @@ fun copy(from: Array<Any>, to: Array<Any>) {
 }
 
 //<editor-fold>
+
+//<editor-fold desc="Nested and Inner Classes">
+
+//嵌套类
+class Outer{
+    private val bar:Int = 1
+    class Nested{
+        fun foo() = 3
+    }
+}
+
+val demo = Outer.Nested().foo()
+
+
+//内部类
+//类可以标记为inner 这样就可以访问外部类的成员。成员类拥有外部类的一个对象引用
+
+class Outer2{
+    private val bar: Int = 1
+    inner class Inner{
+        fun foo() = bar
+    }
+}
+
+val demo1 = Outer2().Inner().foo()
+
+
+//匿名内部类
+//匿名内部类的实例通过对象表达式创建的
+val listener = ActionListener{
+    println("clicked")
+}
+
+//<editor-fold>
+
+
+//<editor-fold desc="Enum Classes">
+
+//枚举类最基本的用法就是实现类型安全的枚举
+enum class Direction{
+    NORTH,SOUTH,WEST
+}
+
+//每个枚举类都是枚举类的一个实例，它们是可以初始化的
+enum class Color(val rgb: Int){
+    RED(0xFF0000),
+    GREEN(0x00FF00),
+    BLUE(0x0000FF)
+}
+
+//匿名类
+//枚举实例也可以声明自己的匿名类
+enum class ProtocolState{
+    WAITING{
+        override fun signal() = Taking
+    },
+    Taking{
+        override fun signal() = WAITING
+    };
+    abstract fun signal():ProtocolState
+}
+
+//在枚举类中实现接口
+enum class IntArithmetics: BinaryOperator<Int>,IntBinaryOperator{
+
+    PLUS{
+        override fun apply(t:Int,u:Int): Int = t + u
+    },
+    TIMES{
+        override fun apply(t:Int,u:Int): Int = t * u
+    };
+
+    override fun applyAsInt(left: Int, right: Int) = apply(left,right)
+}
+
+//使用枚举常量
+enum class RGB{
+    RED,GREEN,BLUE
+}
+
+inline fun <reified T : Enum<T>> printAllValues(){
+    print(enumValues<T>().joinToString { it.name })
+}
+
+fun printRGB(){
+    printAllValues<RGB>()
+}
+
+//</editor-fold>
+
+//<editor-fold desc="Object Expressions and Declarations">
+
+
+//</editor-fold>
